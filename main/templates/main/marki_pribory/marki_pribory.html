@@ -1,0 +1,35 @@
+{% extends 'main/header.html' %}
+{% block content %}
+    <h2>Список марок приборов учета</h2>
+    <br>
+    <a href="/admin/main/markipriborov/add/">
+        <button class="btn btn-primary">Новая марка</button>
+    </a>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Наименование</th>
+            <th>Производитель</th>
+            <th>Срок действия</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for marka in object_list %}
+            <tr>
+                <td><a href="{% url 'detail_marki_pribory' marka.id %}">{{ marka.id }}</a></td>
+                <td>{{ marka.name }}</td>
+                <td>{{ marka.manufacturer }}</td>
+                <td>{{ marka.expir_date }}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-default" onclick="location.href = '{% url 'detail_marki_pribory' marka.id %}'">Подробнее</button>
+                    </div>
+                </td>
+            </tr>
+        {%  endfor %}
+    </tbody>
+    </table>
+
+{% endblock %}

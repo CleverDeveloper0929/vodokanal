@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Главная</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <script src="{% static 'main/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+
+{% include 'main/navbar.html' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="{% url 'list_lics' %}" class="list-group-item">Лицевые счета</a>
+                <a href="{% url 'list_NasPunkt' %}" class="list-group-item">Населенные пункты</a>
+                <a href="{% url 'list_persons' %}" class="list-group-item">Физические лица</a>
+                <a href="{% url 'list_kvartiry' %}" class="list-group-item">Квартиры</a>
+                <a href="{% url 'list_dom' %}" class="list-group-item">Дома</a>
+                <a href="{% url 'list_streets' %}" class="list-group-item">Улицы</a>
+                <a href="{% url 'list_lgoty' %}" class="list-group-item">Льготы</a>
+                <a href="{% url 'list_tip_lgoty' %}" class="list-group-item">Типы льгот</a>
+                <a href="{% url 'list_pribory' %}" class="list-group-item">Приборы учета</a>
+                <a href="{% url 'list_uslugi' %}" class="list-group-item">Тарифы</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+<!--JS-->
+
+<script>
+$(document).ready(function(){
+    $('.list-group a').each(function () {
+        if (this.href === location.href) {
+            $(this).addClass('active');
+        }
+    });
+});
+</script>
+
+</body>
+</html>

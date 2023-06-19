@@ -1,0 +1,42 @@
+{% extends 'main/header.html' %}
+{% block content %}
+    <h2>Список Физ. лиц</h2>
+    <br>
+    <a href="/admin/main/person/add/">
+        <button class="btn btn-primary">Новое Физ. лицо</button>
+    </a>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Лицевой счет</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Пол</th>
+            <th>Дата рождения</th>
+            <th>Дата смерти</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for person in object_list %}
+            <tr>
+                <td><a href="{% url 'detail_persons' person.id %}">{{ person.id }}</a></td>
+                <td><a href="{% url 'detail_lics' person.lics %}">{{ person.lics }}</a></td>
+                <td>{{ person.first_name }}</td>
+                <td>{{ person.last_name }}</td>
+                <td>{{ person.patronymic }}</td>
+                <td>{{ person.gender }}</td>
+                <td>{{ person.dateOfBirdth }}</td>
+                <td>{{ person.dateOfDeath }}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-default" onclick="location.href = '{% url 'detail_persons' person.id %}'">Подробнее</button>
+                    </div>
+                </td>
+            </tr>
+        {%  endfor %}
+    </tbody>
+    </table>
+{% endblock %}

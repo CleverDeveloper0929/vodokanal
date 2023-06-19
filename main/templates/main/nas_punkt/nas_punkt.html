@@ -1,0 +1,30 @@
+{% extends 'main/header.html' %}
+{% block content %}
+    <h2>Список Населенных пунктов</h2>
+    <br>
+    <a href="/admin/main/nas_punkt/add/">
+        <button class="btn btn-primary">Новый населенный пункт</button>
+    </a>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Населенный пункт</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for nas_punkt in object_list %}
+            <tr>
+                <td><a href="{% url 'detail_NasPunkt' nas_punkt.id %}">{{ nas_punkt.id }}</a></td>
+                <td>{{ nas_punkt.name }}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-default" onclick="location.href = '{% url 'detail_NasPunkt' nas_punkt.id %}'">Подробнее</button>
+                    </div>
+                </td>
+            </tr>
+        {%  endfor %}
+    </tbody>
+    </table>
+{% endblock %}

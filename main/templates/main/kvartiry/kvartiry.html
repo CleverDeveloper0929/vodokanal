@@ -1,0 +1,32 @@
+{% extends 'main/header.html' %}
+{% block content %}
+    <h2>Список квартир</h2>
+    <br>
+    <a href="/admin/main/kvartiry/add/">
+        <button class="btn btn-primary">Новая квартира</button>
+    </a>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Дом</th>
+            <th>Номер квартиры</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for kvartiry in object_list %}
+            <tr>
+                <td><a href="{% url 'detail_kvartiry' kvartiry.id %}">{{ kvartiry.id }}</a></td>
+                <td><a href="{% url 'detail_dom' kvartiry.kod_dom_id %}">{{ kvartiry.kod_dom }}</a></td>
+                <td>{{ kvartiry.number }}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-default" onclick="location.href = '{% url 'detail_kvartiry' kvartiry.id %}'">Подробнее</button>
+                    </div>
+                </td>
+            </tr>
+        {%  endfor %}
+    </tbody>
+    </table>
+{% endblock %}

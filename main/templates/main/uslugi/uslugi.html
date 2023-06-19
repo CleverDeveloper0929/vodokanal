@@ -1,0 +1,33 @@
+{% extends 'main/header.html' %}
+{% block content %}
+    <h2>Список услуг</h2>
+    <br>
+    <a href="/admin/main/uslugi/add/">
+        <button class="btn btn-primary">Новая услуга</button>
+    </a>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Наименование</th>
+            <th>Тариф</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in object_list %}
+            <tr>
+                <td><a href="{% url 'detail_uslugi' obj.id %}">{{ obj.id }}</a></td>
+                <td>{{ obj.name }}</td>
+                <td>{{ obj.pricing }}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-default" onclick="location.href = '{% url 'detail_uslugi' obj.id %}'">Подробнее</button>
+                    </div>
+                </td>
+            </tr>
+        {%  endfor %}
+    </tbody>
+    </table>
+
+{% endblock %}

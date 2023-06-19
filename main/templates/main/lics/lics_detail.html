@@ -1,0 +1,107 @@
+{% extends 'main/header.html' %}
+{% block content %}
+
+    <div class="btn-group" style="margin-bottom: 20px ">
+        <button class="btn btn-success" onclick="location.href = '/admin/main/lics/{{ lics.lics }}/change/'">Редактировать</button>
+        <button class="btn btn-info" onclick="location.href = '/admin/main/pribor_lics/add/'">Добавить прибор учета</button>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Лицевой счет: {{ lics.lics }}</h3>
+      </div>
+      <div class="panel-body">
+          <p><strong>Дом:</strong> {{ lics.kod_dom }}</p>
+          <p><strong>Квартира:</strong> {{ lics.kod_kvart }}</p>
+          <p><strong>Телефон:</strong> {{ lics.tel }}</p>
+          <p><strong>Примечание:</strong> {{ lics.prim }}</p>
+          <p><strong>Email:</strong> {{ lics.email }}</p>
+      </div>
+    </div>
+
+    {% if oplata %}
+        <div class="panel panel-default">
+          <div class="panel-body">
+              <p>К оплате: {{ oplata }} BYN</p>
+              <p>Скидка по льготе: {{ skidka }} %</p>
+              <p>в том числе за Водоснабжение: {{ oplata_voda }} BYN</p>
+              <p>в том числе за Канализацию: {{ oplata_kanal }} BYN</p>
+          </div>
+        </div>
+    {% endif %}
+
+    {% if persons %}
+        <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Физ лица</h3>
+      </div>
+      <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Пол</th>
+                    <th>Дата рождения</th>
+                    <th>Дата смерти</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for person in persons %}
+                    <tr>
+                        <td><a href="{% url 'detail_persons' person.id %}">{{ person.id }}</a></td>
+                        <td>{{ person.last_name }}</td>
+                        <td>{{ person.first_name }}</td>
+                        <td>{{ person.patronymic }}</td>
+                        <td>{{ person.gender }}</td>
+                        <td>{{ person.dateOfBirdth }}</td>
+                        <td>{{ person.dateOfDeath }}</td>
+                    </tr>
+                {%  endfor %}
+            </tbody>
+          </table>
+      </div>
+    </div>
+    {% endif %}
+    {% if pribory %}
+        <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Приборы учета</h3>
+      </div>
+      <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Услуга</th>
+                    <th>Марка прибора</th>
+                    <th>Дата поверки</th>
+                    <th>Показания m3</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in pribory %}
+                    <tr class="{% if obj.oplata %}success{% else %}danger{% endif %}">
+                        <td><a href="{% url 'detail_pribory' obj.id %}">{{ obj.id }}</a></td>
+                        <td>{{ obj.kod_uslugi }}</td>
+                        <td>{{ obj.kod_pribor }}</td>
+                        <td>{{ obj.date_poverky }}</td>
+                        <td>{{ obj.value }}</td>
+                        <td>
+                            <a href="/admin/main/pribory/{{ obj.id }}/change/" class="btn-sm btn-success">
+                                Ввод показаний
+                            </a>
+                        </td>
+                    </tr>
+                {%  endfor %}
+            </tbody>
+          </table>
+      </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

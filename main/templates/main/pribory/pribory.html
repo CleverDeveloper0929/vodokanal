@@ -1,0 +1,39 @@
+{% extends 'main/header.html' %}
+{% block content %}
+    <h2>Список приборов учета</h2>
+    <br>
+    <a href="/admin/main/pribory/add/">
+        <button class="btn btn-primary">Новый прибор учета</button>
+    </a>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Услуга</th>
+            <th>Марка прибора</th>
+            <th>Серийный номер</th>
+            <th>Дата последней поверки</th>
+            <th>Показания счетчика</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pribor in object_list %}
+            <tr class="{% if pribor.oplata %}success{% else %}danger{% endif %}">
+                <td><a href="{% url 'detail_pribory' pribor.id %}">{{ pribor.id }}</a></td>
+                <td><a href="{% url 'detail_uslugi' pribor.kod_uslugi_id %}">{{ pribor.kod_uslugi }}</a></td>
+                <td><a href="{% url 'detail_marki_pribory' pribor.kod_pribor_id %}">{{ pribor.kod_pribor }}</a></td>
+                <td>{{ pribor.sn }}</td>
+                <td>{{ pribor.date_poverky }}</td>
+                <td>{{ pribor.value }}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-default" onclick="location.href = '{% url 'detail_pribory' pribor.id %}'">Подробнее</button>
+                    </div>
+                </td>
+            </tr>
+        {%  endfor %}
+    </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'main/header.html' %}
+{% block content %}
+    <h2>Список улиц</h2>
+    <br>
+    <a href="/admin/main/street/add/">
+        <button class="btn btn-primary">Новая улица</button>
+    </a>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Наименование</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for street in object_list %}
+            <tr>
+                <td><a href="{% url 'detail_streets' street.id %}">{{ street.id }}</a></td>
+                <td>{{ street.name }}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-default" onclick="location.href = '{% url 'detail_streets' street.id %}'">Подробнее</button>
+                    </div>
+                </td>
+            </tr>
+        {%  endfor %}
+    </tbody>
+    </table>
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+          {% if object_list.has_previous %}
+                <li>
+                  <a href="?page={{ object_list.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+          {% endif %}
+
+          {% for num in object_list.paginator.page_range %}
+              {% if num == object_list.number %}
+                  <li class="active"><a href="">{{ num }}</a></li>
+              {% else %}
+                  <li><a href="?page={{ num }}">{{ num }}</a></li>
+              {% endif %}
+          {% endfor %}
+
+          {% if object_list.has_next %}
+              <li>
+                  <a href="?page={{ object_list.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+              </li>
+          {% endif %}
+      </ul>
+    </nav>
+
+{% endblock %}

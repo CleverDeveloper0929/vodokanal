@@ -1,0 +1,22 @@
+{% extends 'main/header.html' %}
+{% block content %}
+    <div class="btn-group" style="margin-bottom: 20px ">
+        <button class="btn btn-success" onclick="location.href = '/admin/main/pribory/{{ pribory.id }}/change/'">Редактировать</button>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Прибор учета: {{ pribory.id }}</h3>
+      </div>
+      <div class="panel-body">
+          <p><strong>Услуга:</strong> {{ pribory.kod_uslugi }}</p>
+          <p><strong>Марка прибора учета:</strong> {{ pribory.kod_pribor }}</p>
+          <p><strong>Серийный номер:</strong> {{ pribory.sn }}</p>
+          <p><strong>Дата последней поверки:</strong> {{ pribory.date_poverky }}</p>
+          <p><strong>Показания счетчика:</strong> {{ pribory.value }}</p>
+          <p><strong>Оплачено?:</strong> {{ pribory.oplata }}</p>
+
+      </div>
+    </div>
+
+{% endblock %}

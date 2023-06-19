@@ -1,0 +1,34 @@
+{% extends 'main/header.html' %}
+{% block content %}
+    <h2>Список льгот</h2>
+    <br>
+    <a href="/admin/main/tip_lgoty/add/">
+        <button class="btn btn-primary">Новая льгота</button>
+    </a>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Наименование</th>
+            <th>Дата начала</th>
+            <th>Дата окончания</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for lgot in object_list %}
+            <tr>
+                <td><a href="{% url 'detail_tip_lgoty' lgot.id %}">{{ lgot.id }}</a></td>
+                <td>{{ lgot.name }}</td>
+                <td>{{ lgot.date_in }}</td>
+                <td>{{ lgot.date_out }}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-default" onclick="location.href = '{% url 'detail_tip_lgoty' lgot.id %}'">Подробнее</button>
+                    </div>
+                </td>
+            </tr>
+        {%  endfor %}
+    </tbody>
+    </table>
+{% endblock %}
